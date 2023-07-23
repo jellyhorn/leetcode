@@ -10,7 +10,6 @@ import "fmt"
  *     Right *TreeNode
  * }
  */
-
 func findDuplicateSubtrees(root *TreeNode) []*TreeNode {
 	if root == nil {
 		return nil
@@ -19,9 +18,10 @@ func findDuplicateSubtrees(root *TreeNode) []*TreeNode {
 		return nil
 	}
 	var q []*TreeNode
-	var traversed []string
+	var traversed = make(map[string]interface{})
 	var results []*TreeNode
-	var resultsAsString []string
+	var resultsAsString = make(map[string]interface{})
+	constMapVal := &struct{}{}
 
 	if root.Left != nil {
 		q = append(q, root.Left)
@@ -40,28 +40,16 @@ func findDuplicateSubtrees(root *TreeNode) []*TreeNode {
 		}
 		encoded := encodeTree(node)
 
-		var isDup bool
-		for _, traversedNode := range traversed {
-			if encoded == traversedNode {
-				isDup = true
-				break
-			}
-		}
+		_, isDup := traversed[encoded]
 		if !isDup {
-			traversed = append(traversed, encoded)
+			traversed[encoded] = constMapVal
 			continue
 		}
 		// isDup == true
-		var isDupInResults bool
-		for _, resultNode := range resultsAsString {
-			if encoded == resultNode {
-				isDupInResults = true
-				break
-			}
-		}
+		_, isDupInResults := resultsAsString[encoded]
 		if !isDupInResults {
 			results = append(results, node)
-			resultsAsString = append(resultsAsString, encoded)
+			resultsAsString[encoded] = constMapVal
 		}
 	}
 	return results
