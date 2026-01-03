@@ -14,11 +14,11 @@ func main() {
 	root.Right.Left = NewNode(5)
 	root.Right.Right = NewNode(6)
 
-	expectedBreadthFirstTraverseResult := []int{0, 1, 2, 3, 4, 5, 6}
-	expectedDepthFirstTraverseResult := []int{3, 1, 4, 0, 5, 2, 6}
+	expectedBreadthFirstTraversalResult := []int{0, 1, 2, 3, 4, 5, 6}
+	//expectedDepthFirstTraversalResult := []int{3, 1, 4, 0, 5, 2, 6}
 
-	if reflect.DeepEqual() {
-		fmt.Println("hey")
+	if reflect.DeepEqual(expectedBreadthFirstTraversalResult, TraverseBreadthFirst(root)) {
+		fmt.Println("Breadth-first tree traversal succeeded.")
 	}
 
 	fmt.Println("hey")
